@@ -84,7 +84,7 @@ class CleanerController extends ChangeNotifier {
     _total = 0;
     _go(Stage.scanning);
 
-    final List<GalleryImage> images;
+    final List<ScanCandidate> images;
     try {
       images = await _gallery.imagesForMonth(year, month);
     } catch (e) {
@@ -141,7 +141,7 @@ class CleanerController extends ChangeNotifier {
     List<String> deletedIds;
     try {
       deletedIds = await _gallery.delete(
-        chosen.map((m) => m.candidate as GalleryImage).toList(),
+        chosen.map((m) => m.candidate).toList(),
       );
     } catch (e) {
       _error = 'صار خطأ بالحذف: $e';

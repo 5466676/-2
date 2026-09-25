@@ -77,10 +77,16 @@ class _Tile extends StatelessWidget {
           PositionedDirectional(
             top: 4,
             end: 4,
-            child: Icon(
-              selected ? Icons.check_circle : Icons.radio_button_unchecked,
-              color: selected ? scheme.primary : Colors.white,
-              shadows: const [Shadow(blurRadius: 4)],
+            child: DecoratedBox(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: [BoxShadow(blurRadius: 3, color: Colors.black38)],
+              ),
+              child: Icon(
+                selected ? Icons.check_circle : Icons.radio_button_unchecked,
+                color: selected ? scheme.primary : Colors.black45,
+              ),
             ),
           ),
           PositionedDirectional(

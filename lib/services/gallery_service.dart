@@ -50,7 +50,7 @@ class GalleryService {
   Future<void> openSettings() => PhotoManager.openSetting();
 
   /// كل صور مجلدات الواتساب المضافة بالشهر المحدد، الأحدث أولًا.
-  Future<List<GalleryImage>> imagesForMonth(int year, int month) async {
+  Future<List<ScanCandidate>> imagesForMonth(int year, int month) async {
     final filter = FilterOptionGroup(
       createTimeCond: DateTimeCond(
         min: DateTime(year, month),
@@ -87,7 +87,8 @@ class GalleryService {
   /// يحذف الصور. من أندرويد 11 وطالع بتروح عالمهملات (قابلة للاسترجاع)
   /// والنظام بيطلب تأكيد وحدة للدفعة كلها. يرجع معرّفات اللي انحذفت
   /// فعلًا (فاضية إذا المستخدم لغى).
-  Future<List<String>> delete(List<GalleryImage> images) async {
+  Future<List<String>> delete(List<ScanCandidate> candidates) async {
+    final images = candidates.whereType<GalleryImage>().toList();
     if (images.isEmpty) return const [];
     if (Platform.isAndroid && await _androidSdk() >= 30) {
       return PhotoManager.editor.android.moveToTrash(
